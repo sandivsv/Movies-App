@@ -1,17 +1,22 @@
 import './App.css';
-// import Banner from './components/Banner';
-// import MovieList from './components/movieList';
+import Banner from './components/Banner';
+import MovieList from './components/movieList';
 import NavBar from './components/NavBar';
 import Fav from './components/Fav'
+import {BrowserRouter,Routes,Route, Router} from 'react-router-dom'
+
 
 
 function App() {
   return (
     <>
+      <BrowserRouter>
       <NavBar/>
-      {/* <Banner/>
-      <MovieList/> */}
-      <Fav/>
+      <Routes>
+        <Route path="/" element={<><Banner/><MovieList/></>}/>
+        <Route path="/favourites" element={<Fav/>}/>
+      </Routes>
+    </BrowserRouter>
     </>
     );
 }
