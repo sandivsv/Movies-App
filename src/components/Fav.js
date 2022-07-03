@@ -7,7 +7,9 @@ class Fav extends Component {
         this.state = {
             genres:[],
             currgenre:'All genres',
-            movies:[]
+            movies:[],
+            movies2:[],
+            currText:''
         }
     }
 
@@ -25,6 +27,7 @@ class Fav extends Component {
     
         this.setState({
             movies:[...data],
+            movies2:[...data],
             genres:[...tempArr]
         });
     }
@@ -40,15 +43,44 @@ class Fav extends Component {
         let data = JSON.parse(localStorage.getItem("movies-app") || '[]');
         if(this.state.currgenre === "All genres"){
             this.setState({
-                movies:[...data]
+                movies:[...data],
+                movies2:[...data]
             })
         }else{
             let filteredMovies = data.filter((movieObj)=>genreIds[movieObj.genre_ids[0]] === this.state.currgenre)
             this.setState({
-                movies:[...filteredMovies]
+                movies:[...filteredMovies],
+                movies2:[...filteredMovies]
             })
         }
     };
+
+
+    handleCurrText = (inputValue)=>{
+        console.log(inputValue)
+        this.setState({
+            currText:inputValue
+        },this.searchMovies)
+    }
+
+    searchMovies = ()=>{
+        if(this.state.currText !== ''){
+            let filteredArr = this.state.movies2.filter((movieObj)=>{
+                let title = movieObj.original_title.toLowerCase();
+                return title.includes(this.state.currText.toLowerCase());
+            })
+            this.setState({
+                movies:[...filteredArr]
+            })
+        }else{
+            // let data = JSON.parse(localStorage.getItem("movies-app") || '[]');
+            this.setState({
+                movies:[...this.state.movies2]
+            })
+        }
+    }
+
+
 
     render() {
         let genreIds = { 28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History", 27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction", 10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"}
@@ -69,7 +101,7 @@ class Fav extends Component {
                     </div>
                     <div className="col-9 fav-table">
                         <div className="row">
-                            <input type="text" className="form-control col" placeholder="Search" />
+                        <input type="text" className="form-control col" placeholder="Search" value={this.state.currText} onChange={(e)=>this.handleCurrText(e.target.value)}/>
                             <input type="number" className="form-control col" />
                         </div>
 

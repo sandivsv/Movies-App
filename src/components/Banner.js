@@ -9,8 +9,10 @@ class Banner extends Component {
             return (
             <div className="card banner-card">
                 <img src={`https://image.tmdb.org/t/p/original${backdrop_path}`} className="card-img-top banner-img" alt="..."/>
-                <h1 className="card-title banner-title">{movie.title}</h1>
-                <p className="card-text banner-text">{movie.overview}</p>
+                <div className="banner-intro">
+                    <h1 className="card-title banner-title">{movie.title}</h1>
+                    <p className="card-text banner-text">{movie.overview}</p>
+                </div>
             </div>
         )
     }

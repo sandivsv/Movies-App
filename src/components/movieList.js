@@ -11,14 +11,12 @@ class MovieList extends Component {
             pArr :[1],
             movies:[],
             currPage:1,
-            favourites:[]
+            favourites: []
         };
     }
-
+    
     async componentDidMount(){
-        // console.log("Component Did Mount");
         const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=81242a2aa2066e052c78ec9ac1700c59&language=en-US&page=${this.state.currPage}`)
-        // console.log(res.data);
         this.setState({
             movies:[...res.data.results]
         })
@@ -37,6 +35,23 @@ class MovieList extends Component {
             pArr:[...this.state.pArr,this.state.pArr.length+1],
             currPage:this.state.currPage+1
         },this.changeMovies)
+        window.scroll(0, 0);
+    }
+
+    handlePrev=()=>{
+        if(this.state.currPage !== 1){
+            this.setState({
+                currPage:this.state.currPage-1
+            },this.changeMovies);
+        }
+    }
+
+    handlePageClick=(ele)=>{
+        if(ele !== this.state.currPage){
+            this.setState({
+                currPage: ele
+            },this.changeMovies);
+        }
     }
 
     handleFavourites = (movieObj)=>{
@@ -53,13 +68,17 @@ class MovieList extends Component {
     handleFavouritesState = ()=>{
         let oldData = JSON.parse(localStorage.getItem('movies-app')|| '[]')
         let temp = oldData.map((movie)=>movie.id);
+
         this.setState({
             favourites:[...temp]
         })
+        
     }
 
+    
     render() {
-        let moviesArr = movies.results
+        let moviesArr = movies.results;
+        // window.reload = this.handleFavouritesState;
         return (
             <>
                 <div>
@@ -68,7 +87,7 @@ class MovieList extends Component {
                 <div className="movies-list">
                     {moviesArr.map((movieEle) => (
                         <div className="card movie-card" onMouseEnter={()=>this.setState({hover:movieEle.id})} onMouseLeave={()=>this.setState({hover:""})} >
-                            <img src={`https://image.tmdb.org/t/p/original${movieEle.backdrop_path}`}  className="card-img-top movie-img movie-card-img" alt="..." />
+                            <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${movieEle.backdrop_path}`}  className="card-img-top movie-img movie-card-img" alt="..." />
                             <h5 className="card-title movie-title">{movieEle.title}</h5>
                             <div style={{ display: 'flex', justifyContent: "center" }}>
                                 {this.state.hover === movieEle.id && (
@@ -82,12 +101,12 @@ class MovieList extends Component {
                 <div style={{display:"flex",justifyContent:"center"}}>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination">
-                        <li className="page-item"><a className="page-link" href=" ">Previous</a></li>
+                        <li className="page-item"><h2 className="page-link"  onClick={this.handlePrev}>Previous</h2></li>
                         {this.state.pArr.map((ele)=>(
-                            <li className="page-item"><a className="page-link" href=" ">{ele}</a></li>
+                            <li className="page-item"><h2 className="page-link" >{ele}</h2></li>
                         ))}
                         
-                        <li className="page-item"><a className="page-link" href=" ">Next</a></li>
+                        <li className="page-item"><h2 className="page-link" onClick={this.handleNext}>Next</h2></li>
                     </ul>
                 </nav>
                 </div>

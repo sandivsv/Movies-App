@@ -38,30 +38,39 @@
 }
 
 .banner-card{
-  width: 100vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95vw;
   margin-top: 2vh;
   margin-bottom: 3vh;
   position: relative;
-  height: 70vh;
+  height: 50vh;
 }
 
 .banner-img{
-  width: 99%;
-  height: 70vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95vw;
+  height: 50vh;
+}
+
+.banner-intro{
+  position: absolute;
+  color: white;
+  top:30vh;
+  left:3vw;
+  right: 2vw;
 }
 
 .banner-title{
-  position: absolute;
-  top:45vh;
-  left:5vw;
-  color:white;
+  padding-bottom: 10px;
+  color: white;
 }
 
 .banner-text{
-  position: absolute;
   color: white;
-  top:55vh;
-  left: 5vw;
 }
 
 .movies-list{
