@@ -86,7 +86,7 @@ class MovieList extends Component {
         return (
             <div onMouseEnter={() => this.handleFavouritesState()}>
                 <div>
-                    <h3 className="text-center"><strong>Trending</strong></h3>
+                    <h3 className="text-center heading"><strong>Trending</strong></h3>
                 </div>
                 <div className="movies-list">
                     {this.state.movies.map((movieEle) => (

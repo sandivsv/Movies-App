@@ -46,6 +46,7 @@
   margin-bottom: 3vh;
   position: relative;
   height: 50vh;
+  border: none;
 }
 
 .banner-img{
@@ -54,6 +55,7 @@
   margin-right: auto;
   width: 95vw;
   height: 50vh;
+  border-radius: 0.375rem;
 }
 
 .banner-intro{
@@ -120,3 +122,20 @@
 padding-top:3rem;
 }
 
+.heading{
+  color: white;
+}
+
+.container-style{
+  /* background-color: #282c34; */
+  margin-top: 45px;
+}
+
+.movie-container{
+  position: static;
+  top: 45px;
+}
+
+.table{
+  color: white;
+}
