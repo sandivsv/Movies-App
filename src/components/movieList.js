@@ -24,15 +24,15 @@ class MovieList extends Component {
 
     changeMovies = async()=>{
         const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=81242a2aa2066e052c78ec9ac1700c59&language=en-US&page=${this.state.currPage}`)
-        // console.log(res.data);
         this.setState({
             movies:[...res.data.results]
         })
     }
 
     handleNext=()=>{
+        console.log(movies)
         this.setState({
-            pArr:[...this.state.pArr,this.state.pArr.length+1],
+            pArr:[...this.state.pArr, this.state.pArr.length+1],
             currPage:this.state.currPage+1
         },this.changeMovies)
         window.scroll(0, 0);
@@ -40,10 +40,13 @@ class MovieList extends Component {
 
     handlePrev=()=>{
         if(this.state.currPage !== 1){
+            let temp = this.state.pArr.slice(0, -1) ;
             this.setState({
+                pArr:[...temp],
                 currPage:this.state.currPage-1
             },this.changeMovies);
         }
+        // window.scroll(0, 0);
     }
 
     handlePageClick=(ele)=>{
@@ -52,13 +55,15 @@ class MovieList extends Component {
                 currPage: ele
             },this.changeMovies);
         }
+        // window.scroll(0, 0);
     }
 
     handleFavourites = (movieObj)=>{
         let oldData = JSON.parse(localStorage.getItem('movies-app') || '[]')
         if(this.state.favourites.includes(movieObj.id)){
-            oldData = oldData.filter((movie)=>movie.id !== movieObj.id)
-        }else{
+            oldData = oldData.filter((movies)=>movies.id !== movieObj.id)
+        }
+        else{
             oldData.push(movieObj)
         }
         localStorage.setItem("movies-app",JSON.stringify(oldData));
@@ -72,20 +77,19 @@ class MovieList extends Component {
         this.setState({
             favourites:[...temp]
         })
-        
     }
+
 
     
     render() {
-        let moviesArr = movies.results;
-        // window.reload = this.handleFavouritesState;
+        
         return (
-            <>
+            <div onMouseEnter={() => this.handleFavouritesState()}>
                 <div>
                     <h3 className="text-center"><strong>Trending</strong></h3>
                 </div>
                 <div className="movies-list">
-                    {moviesArr.map((movieEle) => (
+                    {this.state.movies.map((movieEle) => (
                         <div className="card movie-card" onMouseEnter={()=>this.setState({hover:movieEle.id})} onMouseLeave={()=>this.setState({hover:""})} >
                             <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${movieEle.backdrop_path}`}  className="card-img-top movie-img movie-card-img" alt="..." />
                             <h5 className="card-title movie-title">{movieEle.title}</h5>
@@ -98,19 +102,19 @@ class MovieList extends Component {
                         </div>
                     ))}
                 </div>
+
                 <div style={{display:"flex",justifyContent:"center"}}>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination">
                         <li className="page-item"><h2 className="page-link"  onClick={this.handlePrev}>Previous</h2></li>
                         {this.state.pArr.map((ele)=>(
-                            <li className="page-item"><h2 className="page-link" >{ele}</h2></li>
+                            <li className="page-item"><h2 className="page-link" onClick={()=>this.handlePageClick(ele)}>{ele}</h2></li>
                         ))}
-                        
                         <li className="page-item"><h2 className="page-link" onClick={this.handleNext}>Next</h2></li>
                     </ul>
                 </nav>
                 </div>
-            </>
+            </div>
         )
     }
 }

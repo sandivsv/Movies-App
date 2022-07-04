@@ -80,6 +80,62 @@ class Fav extends Component {
         }
     }
 
+    sortPopularityDesc = ()=>{
+        let temp = this.state.movies.map((movieObj)=>movieObj);
+        temp.sort(function(objA,objB){
+            return objB.popularity - objA.popularity;
+        })
+        this.setState({
+            movies:[...temp],
+            movies2:[...temp]
+        })
+    }
+
+
+
+    sortPopularityAsc = ()=>{
+        let temp = this.state.movies.map((movieObj)=>movieObj);
+        temp.sort(function(objA,objB){
+            return objA.popularity - objB.popularity;
+        })
+        this.setState({
+            movies:[...temp],
+            movies2:[...temp]
+        })
+    }
+
+    sortRatingDesc = ()=>{
+        let temp = this.state.movies.map((movieObj)=>movieObj);
+        temp.sort(function(objA,objB){
+            return objB.vote_average - objA.vote_average;
+        })
+        this.setState({
+            movies:[...temp],
+            movies2:[...temp]
+        })
+    }
+
+    sortRatingAsc = ()=>{
+        let temp = this.state.movies.map((movieObj)=>movieObj);
+        temp.sort(function(objA,objB){
+            return objA.vote_average - objB.vote_average;
+        })
+        this.setState({
+            movies:[...temp],
+            movies2:[...temp]
+        })
+    }
+
+    handleDelete = (movieObj)=>{
+        let oldData = JSON.parse(localStorage.getItem('movies-app') || '[]');
+        let newData = oldData.filter((movies)=>movies.id !== movieObj.id);
+        this.setState({
+            movies:[...newData],
+            movies2:[...newData]
+        })
+        localStorage.setItem("movies-app",JSON.stringify(newData));
+    }
+
 
 
     render() {
@@ -110,8 +166,16 @@ class Fav extends Component {
                                 <tr>
                                     <th scope="col">Title</th>
                                     <th scope="col">Genre</th>
-                                    <th scope="col">Popularity</th>
-                                    <th scope="col">Rating</th>
+                                    <th scope="col" >
+                                        <i className="fa fa-sort-up"  onClick={this.sortPopularityDesc}></i>
+                                         Popularity
+                                        <i className="fa fa-sort-down"></i>
+                                    </th>
+                                    <th scope="col">
+                                        <i className="fa fa-sort-up"  onClick={this.sortRatingDesc}></i>
+                                        Rating
+                                        <i className="fa fa-sort-down" onClick={this.sortRatingAsc}></i>
+                                    </th>
                                     <th scope="col">Delete</th>
                                 </tr>
                             </thead>
@@ -119,11 +183,11 @@ class Fav extends Component {
                                 {
                                     this.state.movies.map((movieEle) => (
                                         <tr>
-                                            <th scope="row"><img alt="poster" style={{ width: "8rem", padding: "1rem" }} src={`https://image.tmdb.org/t/p/original${movieEle.backdrop_path}`} />{movieEle.title}</th>
-                                            <td>{genreIds[movieEle.genre_ids[0]]}</td>
-                                            <td>{movieEle.popularity}</td>
-                                            <td>{movieEle.vote_average}</td>
-                                            <td><button type="button" className="btn btn-danger">Delete</button></td>
+                                            <th scope="row"><img alt="poster" style={{ width: "8rem", padding: "1rem"}} src={`https://image.tmdb.org/t/p/original${movieEle.backdrop_path}`} />{movieEle.title}</th>
+                                            <td className="text-center">{genreIds[movieEle.genre_ids[0]]}</td>
+                                            <td className="text-center">{movieEle.popularity}</td>
+                                            <td className="text-center">{movieEle.vote_average}</td>
+                                            <td className="text-center"><button type="button" className="btn btn-danger" onClick={()=>this.handleDelete(movieEle)}>Delete</button></td>
                                         </tr>
                                     ))
                                 }
