@@ -29,7 +29,6 @@ class MovieList extends Component {
     }
 
     handleNext=()=>{
-        console.log(movies)
         this.setState({
             pArr:[...this.state.pArr, this.state.pArr.length+1],
             currPage:this.state.currPage+1
