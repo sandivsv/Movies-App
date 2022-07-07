@@ -2,7 +2,6 @@ import { Component } from "react";
 import { movies } from "../movieData"
 import axios from "axios"
 
-
 class MovieList extends Component {
     constructor(){
         super();
@@ -78,26 +77,31 @@ class MovieList extends Component {
             favourites:[...temp]
         })
     }
-
+     
+ 
 
     
     render() {
         
         return (
-            <div onMouseEnter={() => this.handleFavouritesState()}>
+            <div onMouseEnter={() => this.handleFavouritesState()} style={{paddingTop:"15px"}}>
                 <div>
                     <h3 className="text-center heading"><strong>Trending</strong></h3>
                 </div>
                 <div className="movies-list">
                     {this.state.movies.map((movieEle) => (
+                        // <div className="card-hover"> 
                         <div className="card movie-card" onMouseEnter={()=>this.setState({hover:movieEle.id})} onMouseLeave={()=>this.setState({hover:""})} >
                             <img src={`https://image.tmdb.org/t/p/w220_and_h330_face${movieEle.backdrop_path}`}  className="card-img-top movie-img movie-card-img" alt="..." />
+                            <h3 className="movie-rating" style={{color: movieEle.vote_average > 6.5 ?"green":"red"  }}>{movieEle.vote_average}</h3>
                             <h5 className="card-title movie-title">{movieEle.title}</h5>
-                            <div style={{ display: 'flex', justifyContent: "center" }}>
+                            <div className="fav-btn" style={{ display: 'flex', justifyContent: "center" }}>
                                 {this.state.hover === movieEle.id && (
-                                    <h1 type="button" className="btn btn-primary movies-button" onClick={()=>this.handleFavourites(movieEle)}>
-                                        {this.state.favourites.includes(movieEle.id)?"Remove from Favourites":"Add to Favourites"}
-                                    </h1>)}
+                                    <button  className="movies-button" onClick={()=>this.handleFavourites(movieEle)}>
+                                    {this.state.favourites.includes(movieEle.id)
+                                    ?<i className="fa fa-heart-circle-minus" style={{fontSize:"2rem",  paddingTop:"5px"}}></i>
+                                    :<i className="fa fa-heart-circle-plus" style={{fontSize:"2rem",  paddingTop:"5px"}}></i>}
+                                </button>)}
                             </div>
                         </div>
                     ))}

@@ -3,10 +3,36 @@
     box-shadow: 1px 1px 2px 0 rgba(32, 27, 27, 0.952);
 } */
 
-/* .scrolled {
-    background-color: #1b1919a7;
-} */
+.scrolled {
+    --bs-bg-opacity: 1 !important;
+}
+nav{
+    height: 70px;
+}
 
 .bg-dark{
-    --bs-bg-opacity: .8 !important;
+    --bs-bg-opacity: 0.4;
+}
+
+.page-logo{
+    text-decoration: none;
+    padding: 2px;
+    color: white;
+    border-radius: 10px;
+    font-family: serif;
+    margin-right: 2.5rem;
+    --bs-link-color:white
+}
+
+.navbar-text :hover{
+    color: #b7b2b7;
+}
+
+.page-title{
+    margin-left: 2.5rem;
+    margin-top: 1.0rem;
+    font-size: 1.0rem;
+    color: white;
+    font-family: red-serif;
+    --bs-link-color:white
 }
