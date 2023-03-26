@@ -1,5 +1,32 @@
 # Movies-App
 
+
+## Here are some screenshot
+
+
+### `Home Page`
+| Top      | Bottom     |
+|------------|-------------|
+| <img src="./sc/sc1.png" width="550"> | <img src="./sc/sc2.png" width="550"> |
+
+
+
+### `Other Pages`
+| More-Info      | Favourites     |
+|------------|-------------|
+| <img src="./sc/sc3.png" width="550"> | <img src="./sc/sc4.png" width="550"> |
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
